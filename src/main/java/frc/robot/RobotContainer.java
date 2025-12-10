@@ -8,21 +8,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystem.Intake; // Import the intake subsystem
+import frc.robot.subsystem.Shooter; // Import the intake subsystem
 
 public class RobotContainer {
   // Declare the controller
   private final CommandXboxController m_controller1;
 
   // Access the singleton instance of the intake subsystem
-  private final Intake m_intakeSubsystem;
+  private final Shooter m_intakeSubsystem;
 
   public RobotContainer() {
     // Initialize the controller
     m_controller1 = new CommandXboxController(1);
 
     // Get the singleton instance of the intake subsystem
-    m_intakeSubsystem = Intake.getInstance();
+    m_intakeSubsystem = Shooter.getInstance();
 
     configureBindings();
   }
