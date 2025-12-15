@@ -1,4 +1,4 @@
-package frc.robot.subsystem;
+/* package frc.robot.subsystem;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -41,4 +41,4 @@ public class ColorSensorSubsystem extends SubsystemBase {
     led.set(isTargetColorDetected());
   }
 }
-
+*/
