@@ -2,32 +2,53 @@ package frc.robot.subsystem;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
-    // This declares a motor controller for the shooter
+    // Lead & follower motors
     private final SparkMax m_leadmotor;
+    private final SparkMax m_follower;
 
-    private Shooter () {
-        // This initializes the lead motor controller for the shooter
-        m_leadmotor = new SparkMax (1, MotorType.kBrushless);  // Replace 1 with the actual port number of your motor 
-    } 
+    private Shooter() {
+        // CAN IDs are examples – change to your real IDs
+        m_leadmotor = new SparkMax(1, MotorType.kBrushless);
+        m_follower  = new SparkMax(2, MotorType.kBrushless);
 
-  //  This is the Singleton design pattern: It creates the single instance of the Shooter class to be used by other classes
-    public static class instanceHolder { 
-    private static final Shooter INSTANCE = new Shooter();
+        // Configure the follower
+        SparkMaxConfig followerConfig = new SparkMaxConfig();
+        followerConfig
+            // Make this SPARK follow the leader (false = not inverted)
+            .follow(m_leadmotor, false);
+            // optional: .idleMode(SparkBaseConfig.IdleMode.kBrake)
+            // optional: .smartCurrentLimit(40);
+
+        // Apply config to follower
+        m_follower.configure(
+            followerConfig,
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
+        );
     }
 
-    // This is the "getter" method that other classes use to obtain the single instance of the Shooter class
+    // Singleton boilerplate
+    public static class instanceHolder {
+        private static final Shooter INSTANCE = new Shooter();
+    }
+
     public static Shooter getInstance() {
-    return instanceHolder.INSTANCE;
+        return instanceHolder.INSTANCE;
     }
 
-    public void setSpeed (double speed) {
-    m_leadmotor.set(speed);
+    public void setSpeed(double speed) {
+        // Only need to command the leader; follower mirrors it in hardware
+        m_leadmotor.set(speed);
     }
-    
+
     public void stop() {
-        m_leadmotor.set(0);
+        m_leadmotor.stopMotor();
     }
 }
