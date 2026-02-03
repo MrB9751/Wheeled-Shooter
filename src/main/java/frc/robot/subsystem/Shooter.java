@@ -15,22 +15,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
     // Lead & follower motors
-    private final SparkMax m_leadmotor;
-    private final SparkMax m_follower;
+    private final SparkMax motor1;
+    private final SparkMax motor2;
 
     // private final ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     // private final ColorMatch colorMatcher = new ColorMatch();
 
     // Reference colors (adjust if needed)
-    private final Color kRedTarget  = new Color(0.407, 0.408, 0.186);
-    private final Color kBlueTarget = new Color(0.145, 0.384, 0.471);
+    // private final Color kRedTarget  = new Color(0.407, 0.408, 0.186);
+    // private final Color kBlueTarget = new Color(0.145, 0.384, 0.471);
 
     private Shooter() {
         // CAN IDs are examples – change to your real IDs
-        m_leadmotor = new SparkMax(1, MotorType.kBrushless);
-        m_follower  = new SparkMax(2, MotorType.kBrushless);
+        motor1 = new SparkMax(1, MotorType.kBrushless);
+        motor2  = new SparkMax(2, MotorType.kBrushless);
 
-        // Configure the follower
+        /* // Configure the follower
         SparkMaxConfig followerConfig = new SparkMaxConfig();
         followerConfig
             // Make this SPARK follow the leader (false = not inverted)
@@ -43,7 +43,7 @@ public class Shooter extends SubsystemBase {
             followerConfig,
             ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters
-        );
+        ); */
 
        // colorMatcher.addColorMatch(kRedTarget);
        // colorMatcher.addColorMatch(kBlueTarget);
@@ -58,13 +58,15 @@ public class Shooter extends SubsystemBase {
         return instanceHolder.INSTANCE;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeeds(double speed1, double speed2) {
         // Only need to command the leader; follower mirrors it in hardware
-        m_leadmotor.set(speed);
+        motor1.set(speed1);
+        motor2.set(speed2);
     }
 
     public void stop() {
-        m_leadmotor.stopMotor();
+        motor1.stopMotor();
+        motor2.stopMotor();
     }
 
         @Override
