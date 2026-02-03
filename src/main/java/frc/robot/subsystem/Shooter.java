@@ -18,8 +18,8 @@ public class Shooter extends SubsystemBase {
     private final SparkMax m_leadmotor;
     private final SparkMax m_follower;
 
-    private final ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-    private final ColorMatch colorMatcher = new ColorMatch();
+    // private final ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+    // private final ColorMatch colorMatcher = new ColorMatch();
 
     // Reference colors (adjust if needed)
     private final Color kRedTarget  = new Color(0.407, 0.408, 0.186);
@@ -45,8 +45,8 @@ public class Shooter extends SubsystemBase {
             PersistMode.kPersistParameters
         );
 
-        colorMatcher.addColorMatch(kRedTarget);
-        colorMatcher.addColorMatch(kBlueTarget);
+       // colorMatcher.addColorMatch(kRedTarget);
+       // colorMatcher.addColorMatch(kBlueTarget);
     }
 
     // Singleton boilerplate
@@ -70,7 +70,7 @@ public class Shooter extends SubsystemBase {
         @Override
 public void periodic() {
 
-    ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
+    /*ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
     if (match.confidence < 0.90) { m_leadmotor.set(0); return; }
 
     boolean piecePresent = colorSensor.getProximity() > 1000;
@@ -88,5 +88,5 @@ public void periodic() {
         else {
             m_leadmotor.set(0.0);          // Default OFF
             }
-        }
-}
+        } */
+}}

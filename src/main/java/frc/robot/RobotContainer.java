@@ -30,7 +30,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Bind the X button to set the intake motor speed
     m_controller1.x().onTrue(
-      new InstantCommand(() -> m_intakeSubsystem.setSpeed(0.2))
+      new InstantCommand(() -> m_intakeSubsystem.setSpeed(1.0))
     );
 
     // Optionally, bind another button to stop the intake motor
